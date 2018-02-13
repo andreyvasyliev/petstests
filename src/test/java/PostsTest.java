@@ -45,7 +45,7 @@ public class PostsTest extends LaunchAndLogin {
     @Test(testName = "Create Post")
     public void createPost() {
 
-        String postTitle = "Hello World!";
+        String postTitle = "Hello World 2018!";
         String postMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
                 "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit " +
