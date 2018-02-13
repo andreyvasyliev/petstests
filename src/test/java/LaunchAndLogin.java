@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import java.net.MalformedURLException;
@@ -45,6 +46,13 @@ public class LaunchAndLogin extends BaseTest {
         MobileElement homeTab = (MobileElement) webDriverWait.until(
                 ExpectedConditions.visibilityOf(driver.findElementById("com.foxtrapp.pets:id/crbHome_AM")));
         logger.info("Home screen is opened");
+    }
+
+    @AfterClass
+    public void afterClass() {
+
+        driver.resetApp();
+
     }
 
     public boolean IsKeyboardShown(AppiumDriver driver)

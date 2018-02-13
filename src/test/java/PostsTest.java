@@ -5,6 +5,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class PostsTest extends LaunchAndLogin {
 
     @BeforeMethod
@@ -45,7 +48,7 @@ public class PostsTest extends LaunchAndLogin {
     @Test(testName = "Create Post")
     public void createPost() {
 
-        String postTitle = "Hello World 2018!";
+        String postTitle = "Post at " + currentDateAndTime();
         String postMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
                 "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit " +
@@ -85,5 +88,14 @@ public class PostsTest extends LaunchAndLogin {
         logger.info("Post " + "'" + postTitle + "'" + " is displayed in the feed");
 
     }
+
+    public String currentDateAndTime() {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return formatter.format(date);
+
+    }
+
 
 }
