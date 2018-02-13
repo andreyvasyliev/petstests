@@ -1,6 +1,7 @@
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -86,6 +87,54 @@ public class PostsTest extends LaunchAndLogin {
         String locator = String.format("//*[@text='%s']", postTitle);
         MobileElement element = driver.findElementByXPath(locator);
         logger.info("Post " + "'" + postTitle + "'" + " is displayed in the feed");
+
+    }
+
+    @Test(testName = "Open Post Details")
+    public void openPostDetails(){
+
+        openPostsList();
+
+        MobileElement post = driver.findElementById("com.foxtrapp.pets:id/tvPostName_IP");
+
+        String selectedPostTitle = post.getText();
+
+        logger.info(post.getText());
+
+        post.click();
+
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
+        MobileElement homeTab = (MobileElement) webDriverWait.until(
+                ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Post Details']")));
+        logger.info("'Post Details' screen is opened");
+
+        String postTitle = driver.findElementById("com.foxtrapp.pets:id/tvTitle_IPDH").getText();
+
+        logger.info("Post Title is " + postTitle);
+
+        Assert.assertEquals(selectedPostTitle, postTitle);
+
+    }
+
+    @Test(testName = "Add Comment")
+    public void addComment(){
+
+        openPostDetails();
+
+        String comment = "Comment at " + currentDateAndTime();
+        String locator = String.format("//*[@text='%s']", comment);
+
+        driver.findElementById("com.foxtrapp.pets:id/etComment_FPD").sendKeys(comment);
+        driver.findElementById("com.foxtrapp.pets:id/ivSend_FPD").click();
+
+        logger.info(comment + " is sent");
+
+        driver.hideKeyboard();
+
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
+        MobileElement homeTab = (MobileElement) webDriverWait.until(
+                ExpectedConditions.visibilityOf(driver.findElementByXPath(locator)));
+        logger.info("Comment is displayed");
 
     }
 
