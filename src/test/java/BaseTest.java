@@ -24,7 +24,7 @@ public class BaseTest {
     @BeforeClass
     public void beforeTestMethod() throws MalformedURLException {
         String pathToOurDir = System.getProperty("user.dir");
-        platform = System.getProperty("platform", "android").toLowerCase();
+        platform = System.getProperty("platform", "iOS").toLowerCase();
 
         if (LoginTest.platform.equals("android")) {
             appFile = new File(pathToOurDir + "/app/android/Pets.apk");
@@ -42,8 +42,8 @@ public class BaseTest {
             appFile = new File(pathToOurDir + "/app/ios/Pets.app");
             DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
             desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-            desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 7");
-            desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10.3`");
+            desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone SE");
+            desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "11.1");
 //            desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
             desiredCapabilities.setCapability(MobileCapabilityType.APP, appFile);
             desiredCapabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 500);

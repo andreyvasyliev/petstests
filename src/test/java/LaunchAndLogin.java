@@ -20,7 +20,7 @@ public class LaunchAndLogin extends BaseTest {
         String password = "111111";
 
         driver.findElementById("com.foxtrapp.pets:id/cvEmailPassLogin_FW").click();
-        logger.info("Login screen is opened");
+        logger.info("LoginPage screen is opened");
 
         driver.findElement(By.id("com.foxtrapp.pets:id/etEmail_LLV")).sendKeys(email);
         logger.info("Email " + email + " is entered");
@@ -38,7 +38,7 @@ public class LaunchAndLogin extends BaseTest {
             driver.findElementById("com.foxtrapp.pets:id/btn_CB").click();
         }
 
-        logger.info("Login button is clicked");
+        logger.info("LoginPage button is clicked");
 
         // waiting for Home screen
 

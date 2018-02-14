@@ -47,20 +47,20 @@ public class LoginTest extends BaseTest {
     @Test(testName = "Open login screen")
     public void openLoginScreen(){
         driver.findElementById("com.foxtrapp.pets:id/cvEmailPassLogin_FW").click();
-        logger.info("Login screen is opened");
+        logger.info("LoginPage screen is opened");
 
     }
 
 
 
-    @Test(testName = "Login with valid email and password",
-            description = "[P0] Login",
+    @Test(testName = "LoginPage with valid email and password",
+            description = "[P0] LoginPage",
             groups = {"smoke", "regression"},
             dataProvider = "emailsAndPasswords")
     public void loginWithValidCredentials(String email, String password) throws InterruptedException {
         openLoginScreen();
 
-        // Enter data on Login screen
+        // Enter data on LoginPage screen
 
         driver.findElement(By.id("com.foxtrapp.pets:id/etEmail_LLV")).sendKeys(email);
         logger.info("Email " + email + " is entered");
@@ -79,7 +79,7 @@ public class LoginTest extends BaseTest {
             driver.findElementById("com.foxtrapp.pets:id/btn_CB").click();
         }
 
-        logger.info("Login button is clicked");
+        logger.info("LoginPage button is clicked");
 
         // waiting for Home screen
 
@@ -113,8 +113,8 @@ public class LoginTest extends BaseTest {
 
 
 
-//    @Test(testName = "Login with valid email and password",
-//            description = "[P0] C134234 - Login",
+//    @Test(testName = "LoginPage with valid email and password",
+//            description = "[P0] C134234 - LoginPage",
 //            groups = {"smoke", "regression"},
 //            dataProvider = "emailsAndPasswords")
 //    public void myFirstTest(String email, String password) throws InterruptedException {
