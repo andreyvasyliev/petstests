@@ -6,6 +6,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import pageobjects.HomePage;
+import pageobjects.registration.LoginPage;
+import pageobjects.registration.WelcomePage;
 
 import java.net.MalformedURLException;
 
@@ -16,56 +19,39 @@ public class LaunchAndLogin extends BaseTest {
     public void beforeTestMethod() throws MalformedURLException {
         super.beforeTestMethod();
 
+        WelcomePage welcomePage = new WelcomePage(driver);
+
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
+        webDriverWait.until(ExpectedConditions.visibilityOf(welcomePage.getBtnUseEmail()));
+
+        welcomePage.allowNotifications();
+
+        welcomePage.tapUseEmailButton();
+
+        LoginPage loginPage = new LoginPage(driver);
+
+        // Enter data on LoginPage screen
+
         String email = "user1@mail.com";
         String password = "111111";
 
-        driver.findElementById("com.foxtrapp.pets:id/cvEmailPassLogin_FW").click();
-        logger.info("LoginPage screen is opened");
-
-        driver.findElement(By.id("com.foxtrapp.pets:id/etEmail_LLV")).sendKeys(email);
-        logger.info("Email " + email + " is entered");
-        driver.hideKeyboard();
-        driver.findElementById("com.foxtrapp.pets:id/etPassword_LLV").sendKeys(password);
-        logger.info("Password " + password + " is entered");
-
-        // REWORK checking that Keyboard is present
-
-        if (IsKeyboardShown(driver) == true) {
-            driver.findElementById("com.foxtrapp.pets:id/btn_CB").click();
-        }
-
-        else {
-            driver.findElementById("com.foxtrapp.pets:id/btn_CB").click();
-        }
-
-        logger.info("LoginPage button is clicked");
+        HomePage homePage = loginPage.inputEmail(email)
+                .inputPassword(password)
+                .tapLoginButton();
 
         // waiting for Home screen
 
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
-        MobileElement homeTab = (MobileElement) webDriverWait.until(
-                ExpectedConditions.visibilityOf(driver.findElementById("com.foxtrapp.pets:id/crbHome_AM")));
+        webDriverWait.until(ExpectedConditions.visibilityOf(homePage.getHomeTab()));
+
         logger.info("Home screen is opened");
     }
 
-    @AfterClass
-    public void afterClass() {
-
-        driver.resetApp();
-
-    }
-
-    public boolean IsKeyboardShown(AppiumDriver driver)
-    {
-        try {
-            driver.hideKeyboard();
-            return true;
-        }
-
-        catch (WebDriverException e) {
-            return false;
-        }
-    }
+//    @AfterClass
+//    public void afterClass() {
+//
+//        driver.resetApp();
+//
+//    }
 
 
 }

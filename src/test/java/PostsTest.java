@@ -1,10 +1,15 @@
 import io.appium.java_client.MobileElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.HomePage;
+import pageobjects.posts.CommunityPage;
+import pageobjects.posts.CreatePostPage;
+import pageobjects.posts.PostDetailsPage;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,11 +29,15 @@ public class PostsTest extends LaunchAndLogin {
     @Test(testName = "Open Posts List")
     public void openPostsList() {
 
-        driver.findElementById("com.foxtrapp.pets:id/crbCommunity_AM").click();
+        HomePage homePage = new HomePage(driver);
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
-        MobileElement homeTab = (MobileElement) webDriverWait.until(
-                ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Community']")));
+
+        webDriverWait.until(ExpectedConditions.visibilityOf(homePage.getHomeTab()));
+
+        homePage.tapOnPostsTab();
+
+        webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Community']")));
         logger.info("Community screen is opened");
 
     }
@@ -36,12 +45,17 @@ public class PostsTest extends LaunchAndLogin {
     @Test(testName = "Open Create Post")
     public void openCreatePost() {
 
+        CommunityPage communityPage = new CommunityPage(driver);
+
         openPostsList();
-        driver.findElementById("com.foxtrapp.pets:id/fabAddPost_FP").click();
+
+        CreatePostPage createPostPage = communityPage.tapAddPostButton();
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
-        MobileElement homeTab = (MobileElement) webDriverWait.until(
-                ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Create Post']")));
+
+        webDriverWait.until(ExpectedConditions.visibilityOf(createPostPage.getPostTitleField()));
+
+//        webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Create Post']")));
         logger.info("Create Post screen is opened");
 
     }
@@ -55,33 +69,18 @@ public class PostsTest extends LaunchAndLogin {
                 "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit " +
                 "esse cillum dolore eu fugiat nulla pariatur. ";
 
-        openCreatePost();
-        driver.findElementById("com.foxtrapp.pets:id/rbDogType_FCP").click();
-        driver.findElementById("com.foxtrapp.pets:id/etTitle_FCP").sendKeys(postTitle);
+        CreatePostPage createPostPage = new CreatePostPage(driver);
 
-        if (IsKeyboardShown(driver) == true) {
-            driver.findElementById("com.foxtrapp.pets:id/etMessage_FCP").click();
-        }
+         openCreatePost();
 
-        else {
-            driver.findElementById("com.foxtrapp.pets:id/etMessage_FCP").click();
-        }
+        createPostPage.tapDogIcon()
+                .inputPostTitle(postTitle)
+                .inputMessage(postMessage)
+                .tapSendButton();
 
-        driver.findElementById("com.foxtrapp.pets:id/etMessage_FCP").sendKeys(postMessage);
-
-        if (IsKeyboardShown(driver) == true) {
-            driver.findElementById("com.foxtrapp.pets:id/btn_CB").click();
-        }
-
-        else {
-            driver.findElementById("com.foxtrapp.pets:id/btn_CB").click();
-        }
-
-        logger.info("Send Post button is clicked");
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
-        MobileElement homeTab = (MobileElement) webDriverWait.until(
-                ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Community']")));
+        webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Community']")));
         logger.info("Community screen is opened");
 
         String locator = String.format("//*[@text='%s']", postTitle);
@@ -95,7 +94,12 @@ public class PostsTest extends LaunchAndLogin {
 
         openPostsList();
 
-        MobileElement post = driver.findElementById("com.foxtrapp.pets:id/tvPostName_IP");
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
+
+        CommunityPage communityPage = new CommunityPage(driver);
+
+        MobileElement post = (MobileElement) webDriverWait.until(
+                ExpectedConditions.visibilityOf(communityPage.getFirstPostInTheList()));
 
         String selectedPostTitle = post.getText();
 
@@ -103,16 +107,16 @@ public class PostsTest extends LaunchAndLogin {
 
         post.click();
 
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
-        MobileElement homeTab = (MobileElement) webDriverWait.until(
-                ExpectedConditions.visibilityOf(driver.findElementByXPath("//*[@text='Post Details']")));
+        PostDetailsPage postDetailsPage = new PostDetailsPage(driver);
+
+        webDriverWait.until(ExpectedConditions.visibilityOf(postDetailsPage.getPageTitle()));
         logger.info("'Post Details' screen is opened");
 
-        String postTitle = driver.findElementById("com.foxtrapp.pets:id/tvTitle_IPDH").getText();
+        String postTitle = postDetailsPage.getPostTitle().getText();
 
         logger.info("Post Title is " + postTitle);
 
-        Assert.assertEquals(selectedPostTitle, postTitle);
+        Assert.assertEquals(selectedPostTitle, postTitle, "Post titles are different!");
 
     }
 
@@ -124,16 +128,14 @@ public class PostsTest extends LaunchAndLogin {
         String comment = "Comment at " + currentDateAndTime();
         String locator = String.format("//*[@text='%s']", comment);
 
-        driver.findElementById("com.foxtrapp.pets:id/etComment_FPD").sendKeys(comment);
-        driver.findElementById("com.foxtrapp.pets:id/ivSend_FPD").click();
+        PostDetailsPage postDetailsPage = new PostDetailsPage(driver);
 
-        logger.info(comment + " is sent");
+        postDetailsPage.inputComment(comment)
+                .tapSendCommentButton();
 
-        driver.hideKeyboard();
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
-        MobileElement homeTab = (MobileElement) webDriverWait.until(
-                ExpectedConditions.visibilityOf(driver.findElementByXPath(locator)));
+        webDriverWait.until(ExpectedConditions.visibilityOf(driver.findElementByXPath(locator)));
         logger.info("Comment is displayed");
 
     }
