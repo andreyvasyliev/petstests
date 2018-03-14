@@ -29,12 +29,12 @@ public class AddPetPage extends ImagesPage {
     @iOSFindBy(accessibility = "ic camera")
     private MobileElement avatar;
 
-    //TODO Add acces id for Name and Birthday
-
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etFirstName_FAPD")
+    @iOSFindBy(accessibility = "pet name")
     private MobileElement petNameField;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etText_LCS")
+    @iOSFindBy(accessibility = "Birthday")
     private MobileElement birthdayField;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/rbMale_FAPD")
@@ -49,8 +49,9 @@ public class AddPetPage extends ImagesPage {
     @iOSFindBy(accessibility = "Next")
     private MobileElement nextButton;
 
-    // HUAWEI CALENDAR
+    // HUAWEI AND iOS CALENDAR
     @AndroidFindBy(id = "android:id/button1")
+    @iOSFindBy(accessibility = "Done")
     private MobileElement calendarOkButton;
 
     public MobileElement getAvatar() {

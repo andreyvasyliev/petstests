@@ -28,12 +28,12 @@ public class CreatePostPage extends BasePage {
     @iOSFindBy(accessibility = "Dog")
     private MobileElement dogIcon;
 
-    //TODO Add Accessibility id for Post title and comment field
-
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etTitle_FCP")
+    @iOSFindBy(accessibility = "Post Title")
     private MobileElement postTitleField;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etMessage_FCP")
+    @iOSFindBy(accessibility = "Message Field")
     private MobileElement messageField;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/btn_CB")
@@ -60,7 +60,7 @@ public class CreatePostPage extends BasePage {
     public CreatePostPage inputMessage(String message) {
         messageField.sendKeys(message);
         hideOpenKeyboard(driver);
-        logger.info("Message {} is inputed", message); //TODO Fix that  long message isn't shown in Logs
+        logger.info("Message {} is inputed", message);
         return this;
     }
 

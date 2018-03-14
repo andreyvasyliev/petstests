@@ -27,12 +27,12 @@ public class PostDetailsPage extends BasePage {
     @iOSFindBy(xpath = "//XCUIElementTypeNavigationBar[@name=\"Post Details\"]")
     private MobileElement pageTitle;
 
-    //TODO Add Accessibility id for Post title and comment field
-
     @AndroidFindBy(id = "com.foxtrapp.pets:id/tvTitle_IPDH")
+    @iOSFindBy(accessibility = "Post Title")
     private MobileElement postTitle;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etComment_FPD")
+    @iOSFindBy(accessibility = "Comments Field")
     private MobileElement commentField;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/ivSend_FPD")

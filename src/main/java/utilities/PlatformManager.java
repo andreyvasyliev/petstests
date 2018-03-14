@@ -14,7 +14,7 @@ public class PlatformManager {
     }
 
     public Platform getPlatform() {
-        String platform = System.getProperty("platform", "Android").toLowerCase();
+        String platform = System.getProperty("platform", "iOS").toLowerCase();
 
         if (platform.equals("android"))
             return Platform.ANDROID;

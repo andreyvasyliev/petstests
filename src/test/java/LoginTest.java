@@ -32,8 +32,21 @@ public class LoginTest extends BaseTest {
         return new Object[][] {
                 {"user1@mail.com", "111111"},
                 {"user2@mail.com", "111111"},
+                {" user2@mail.com ", "111111"},
+
         };
     }
+
+    @DataProvider(name = "invalidCredentials")
+    public static Object[][] invalidCredentials() {
+        return new Object[][] {
+                {"user1@mail.com", "222222"},
+                {"user12345@mail.com", "111111"},
+                {"user12345@mail.com", ""},
+                {"", "111111"},
+        };
+    }
+
 
 
     @Test(testName = "Open login screen")
@@ -102,7 +115,7 @@ public class LoginTest extends BaseTest {
 
         logger.info("User's email is " + editAccountDetails.getEmailAddressField().getText());
 
-        Assert.assertEquals(editAccountDetails.getEmailAddressField().getText(), email, "Emails don't match!");
+        Assert.assertEquals(editAccountDetails.getEmailAddressField().getText(), email.trim(), "Emails don't match!");
 
     }
 
@@ -123,22 +136,44 @@ public class LoginTest extends BaseTest {
 
         SignUpPage signUpPage = new SignUpPage(driver);
 
-        AddPetPage addPetPage = signUpPage.inputFirstName("Silent")
+        AddPetPage addPetPage = signUpPage.inputFirstName("Jayson")
                 .inputSurname("Bob")
-                .inputMobileNumber("12345678917")
+                .inputMobileNumber("12346678999")
                 .scrollPageUp()
-                .inputEmailAddress("user17@mail.com")
+                .inputEmailAddress("user199@mail.com")
                 .inputPassword("qwerty")
-                .scrollPageUp()
+                .waitForConfirmPasswordField(signUpPage)
                 .inputConfirmPassword("qwerty")
                 .tapSignUpButton();
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
         webDriverWait.until(ExpectedConditions.visibilityOf(addPetPage.getAvatar()));
 
+        logger.info("Add Pet screen is opened");
+
         Thread.sleep(3000);
 
     }
 
+    @Test(testName = "Login with invalid credentials",
+            dataProvider = "invalidCredentials")
+    public void loginWithInvalidCredentials(String email, String password) throws Exception{
+
+        openLoginScreen();
+
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.inputEmail(email)
+                .inputPassword(password)
+                .tapLoginButton();
+
+        Thread.sleep(5);
+
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+        webDriverWait.until(ExpectedConditions.visibilityOf(loginPage.getLoginButton()));
+
+        logger.info("Login screen is still shown");
+
+    }
 
 }

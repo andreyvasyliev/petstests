@@ -27,11 +27,11 @@ public class TabBarPage extends BasePage {
     // TAB BAR ELEMENTS
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/crbHome_AM")
-    @iOSFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Ur Pets Life\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[1]")
+    @iOSFindBy(accessibility = "Home Tab")
     private MobileElement homeTab;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/crbCommunity_AM")
-    @iOSFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Ur Pets Life\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[2]")
+    @iOSFindBy(accessibility = "Discussions Tab")
     private MobileElement postsTab;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/ivEmergency_AM")
@@ -39,11 +39,11 @@ public class TabBarPage extends BasePage {
     private MobileElement emergencyTab;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/crbNotifications_AM")
-    @iOSFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Ur Pets Life\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[4]")
+    @iOSFindBy(accessibility = "Notifications Tab")
     private MobileElement notificationsTab;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/crbAccount_AM")
-    @iOSFindBy(xpath = "//XCUIElementTypeApplication[@name=\"Ur Pets Life\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[5]")
+    @iOSFindBy(accessibility = "Account Tab")
     private MobileElement myAccountTab;
 
     public MobileElement getHomeTab() {

@@ -2,7 +2,7 @@ package pageobjects.base_pages;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +27,14 @@ public class ImagesPage extends BasePage {
     // BUTTONS
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/tvCamera_FBS")
+    @iOSFindBy(accessibility = "Take Photo")
     private MobileElement cameraButton;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/tvGallery_FBS")
+    @iOSFindBy(accessibility = "Choose From Library")
     private MobileElement galleryButton;
 
+    // TODO Notification button on iOS need to fix
     @AndroidFindBy(id = "com.android.packageinstaller:id/permission_allow_button")
     private MobileElement allowButton;
 

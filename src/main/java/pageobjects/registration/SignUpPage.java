@@ -4,6 +4,9 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pageobjects.base_pages.BasePage;
@@ -120,6 +123,10 @@ public class SignUpPage extends BasePage {
         return new AddPetPage(driver);
     }
 
+    public MobileElement getFieldConfirmPassword() {
+        return fieldConfirmPassword;
+    }
+
     //TODO Make scroll Base method
 
     public SignUpPage scrollPageUp() {
@@ -135,6 +142,12 @@ public class SignUpPage extends BasePage {
                     .perform();
 
 
+        return this;
+    }
+
+    public SignUpPage waitForConfirmPasswordField(SignUpPage signUpPage) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+        webDriverWait.until(ExpectedConditions.visibilityOf(signUpPage.getFieldConfirmPassword()));
         return this;
     }
 

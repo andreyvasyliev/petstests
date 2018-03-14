@@ -40,7 +40,7 @@ public class AddPet extends LaunchAndLogin{
         // Open Add Pet Screen
 
         addPetPage
-                .inputPetName("Petya")
+                .inputPetName("Jack")
                 .selectBirthday();
 
         addPetPage.tapAvatar();
@@ -60,8 +60,8 @@ public class AddPet extends LaunchAndLogin{
         specificationsPage
                 .tapDogIcon()
                 .inputMicrochip("123456789012")
-                .inputMunicipalityTag("D12555 2017")
-                .inputWeight("5.5");
+                .inputMunicipalityTag("D12555 2016")
+                .inputWeight("4.5");
 
         VaccinationPage vaccinationPage = specificationsPage.tapNextButton();
 

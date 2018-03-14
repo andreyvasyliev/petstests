@@ -13,6 +13,8 @@ public class MyAccountScreen extends TabBarPage {
     private Logger logger = LoggerFactory.getLogger(MyAccountScreen.class);
 
 
+    //TODO Add iOS Selectors for Account elements
+
     @AndroidFindBy(id = "com.foxtrapp.pets:id/add_pet_MAP")
     @iOSFindBy(xpath = "//XCUIElementTypeNavigationBar[@name=\"My Account\"]/XCUIElementTypeButton")
     private MobileElement addPetButton;

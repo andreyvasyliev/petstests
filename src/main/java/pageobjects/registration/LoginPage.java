@@ -39,6 +39,9 @@ public class LoginPage extends BasePage {
     @iOSFindBy(accessibility = "SIGN UP")
     private MobileElement signUpButton;
 
+    public MobileElement getLoginButton() {
+        return loginButton;
+    }
 
     public LoginPage inputEmail(String email) {
         emailField.sendKeys(email);

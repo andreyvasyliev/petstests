@@ -21,10 +21,10 @@ public class LaunchAndLogin extends BaseTest {
 
         WelcomePage welcomePage = new WelcomePage(driver);
 
+        welcomePage.allowNotifications();
+
         WebDriverWait webDriverWait = new WebDriverWait(driver, 60);
         webDriverWait.until(ExpectedConditions.visibilityOf(welcomePage.getBtnUseEmail()));
-
-        welcomePage.allowNotifications();
 
         welcomePage.tapUseEmailButton();
 
