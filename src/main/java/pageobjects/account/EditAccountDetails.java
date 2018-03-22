@@ -2,7 +2,7 @@ package pageobjects.account;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.*;
 import org.aspectj.lang.annotation.AdviceName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +26,11 @@ public class EditAccountDetails extends BasePage {
     // LIST OF FIELDS AND BUTTON
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etFirstName_FEA")
+    @iOSFindBy(accessibility = "First Name")
     private MobileElement firstNameField;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/etEmail_FEA")
+    @iOSFindBy(accessibility = "Email Address")
     private MobileElement emailAddressField;
 
     public MobileElement getFirstNameField() {

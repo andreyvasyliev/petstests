@@ -34,7 +34,7 @@ public class BaseTest {
     @BeforeClass
     public void beforeTestMethod() throws MalformedURLException {
         String pathToOurDir = System.getProperty("user.dir");
-        platform = System.getProperty("platform", "iOS").toLowerCase();
+        platform = System.getProperty("platform", "Android").toLowerCase();
 
         if (LoginTest.platform.equals("android")) {
             appFile = new File(pathToOurDir + "/app/android/Pets.apk");

@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +14,8 @@ import pageobjects.base_pages.BasePage;
 import pageobjects.pets.AddPetPage;
 import utilities.PlatformManager;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignUpPage extends BasePage {
@@ -127,9 +130,15 @@ public class SignUpPage extends BasePage {
         return fieldConfirmPassword;
     }
 
-    //TODO Make scroll Base method
+    //TODO Make scroll available for iOS
 
     public SignUpPage scrollPageUp() {
+
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("direction", "down");
+//        js.executeScript("mobile: swipe", params);
+
             int x = (int) (driver.manage().window().getSize().getWidth() * 0.50);
             int startY = (int) ((driver.manage().window().getSize().getHeight()) * 0.90);
             int endY = (int) ((driver.manage().window().getSize().getHeight()) * 0.10);

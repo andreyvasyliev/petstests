@@ -1,4 +1,5 @@
 import io.appium.java_client.MobileElement;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,6 +14,8 @@ import pageobjects.pets.AddPetPage;
 import pageobjects.registration.LoginPage;
 import pageobjects.registration.SignUpPage;
 import pageobjects.registration.WelcomePage;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginTest extends BaseTest {
 
@@ -169,10 +172,25 @@ public class LoginTest extends BaseTest {
 
         Thread.sleep(5);
 
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
-        webDriverWait.until(ExpectedConditions.visibilityOf(loginPage.getLoginButton()));
+        if(platform.equals("android")) {
+            WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+            webDriverWait.until(ExpectedConditions.visibilityOf(loginPage.getLoginButton()));
+            logger.info("Login screen is still shown");
+        } else if(platform.equals("ios")) {
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            try {
+                driver.findElementByName(loginPage.getNetworkErrorAlert());
+            } catch (WebDriverException e) {
+            }
 
-        logger.info("Login screen is still shown");
+            try {
+                driver.findElementByName(loginPage.getValidationErrorAlert());
+            } catch (WebDriverException e) {
+            }
+
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            logger.info("Error alert is shown");
+        }
 
     }
 

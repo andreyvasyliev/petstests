@@ -13,18 +13,18 @@ public class MyAccountScreen extends TabBarPage {
     private Logger logger = LoggerFactory.getLogger(MyAccountScreen.class);
 
 
-    //TODO Add iOS Selectors for Account elements
-
     @AndroidFindBy(id = "com.foxtrapp.pets:id/add_pet_MAP")
-    @iOSFindBy(xpath = "//XCUIElementTypeNavigationBar[@name=\"My Account\"]/XCUIElementTypeButton")
+    @iOSFindBy(accessibility = "Add Pet button")
     private MobileElement addPetButton;
 
     // LIST OF ITEMS
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/llMyAppointments_FA")
+    @iOSFindBy(accessibility = "My Appointments")
     private MobileElement myAppointmentsItem;
 
     @AndroidFindBy(id = "com.foxtrapp.pets:id/llEditAccount_FA")
+    @iOSFindBy(accessibility = "Edit Account Details")
     private MobileElement editAccountItem;
 
     public MobileElement getMyAppointmentsItem() {

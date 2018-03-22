@@ -39,6 +39,18 @@ public class LoginPage extends BasePage {
     @iOSFindBy(accessibility = "SIGN UP")
     private MobileElement signUpButton;
 
+    private String networkErrorAlert = "Network Error";
+
+    private String validationErrorAlert = "Validation Error";
+
+    public String getNetworkErrorAlert() {
+        return networkErrorAlert;
+    }
+
+    public String getValidationErrorAlert() {
+        return validationErrorAlert;
+    }
+
     public MobileElement getLoginButton() {
         return loginButton;
     }
